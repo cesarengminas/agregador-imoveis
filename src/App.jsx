@@ -13,10 +13,19 @@ function App() {
   const [selectedProperty, setSelectedProperty] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
+  const API_URL = (() => {
+  if (import.meta.env.VITE_API_URL) return import.meta.env.VITE_API_URL;
+  const hostname = window?.location?.hostname || '';
+  if (hostname.includes('netlify') || hostname.includes('vercel')) {
+    return 'https://agregador-imoveis.onrender.com';
+  }
+  return 'http://localhost:3001';
+})();
+
   const handleUpdate = async () => {
     setIsLoading(true);
     try {
-      const response = await fetch(`http://localhost:3001/api/search?maxPrice=${maxPrice}&rooms=${rooms}`);
+      const response = await fetch(`${API_URL}/api/search?maxPrice=${maxPrice}&rooms=${rooms}`);
       if (!response.ok) throw new Error('Falha no Servidor ou Cloudflare Block');
       
       const data = await response.json();
@@ -52,7 +61,7 @@ function App() {
     // If it's already a fallback Unsplash image, use directly
     if (property.image.includes('unsplash.com')) return property.image;
     // Route everything through our proxy for correct Referer headers
-    return `http://localhost:3001/api/image?url=${encodeURIComponent(property.image)}`;
+    return `${API_URL}/api/image?url=${encodeURIComponent(property.image)}`;
   };
 
   return (
