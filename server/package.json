@@ -1,15 +1,18 @@
 {
-  "name": "server",
+  "name": "agregador-imoveis-server",
   "version": "1.0.0",
-  "description": "",
+  "description": "Backend scraper for agregador de imoveis",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node index.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "type": "commonjs",
+  "engines": {
+    "node": ">=18"
+  },
   "dependencies": {
     "cors": "^2.8.6",
     "express": "^5.2.1",
